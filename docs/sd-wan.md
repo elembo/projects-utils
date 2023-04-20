@@ -72,6 +72,89 @@
     !
     no system is-vmanaged
 
+#### Fix C8300 TenGig Port
+
+    !-------------------------------------------------------------------
+    ! Request Token for System Shell
+    !-------------------------------------------------------------------
+    !
+    request consent-token generate-challenge shell-access auth-timeout 120
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Provide Token for System Shell
+    !-------------------------------------------------------------------
+    !
+    request consent-token accept-response shell-access [token]
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Request Access for System Shell
+    !-------------------------------------------------------------------
+    !
+    request platform software system shell
+    !
+    !
+    !-------------------------------------------------------------------
+    ! This will move us to the normal router prompt
+    !-------------------------------------------------------------------
+    !
+    confd_cli -P 3010 -C -noaaa -g sdwan-oper
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Disable CDB
+    !-------------------------------------------------------------------
+    !
+    cdb-maintenance recovery-method ios-processing-disabled
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Then Apply the Config Below
+    !-------------------------------------------------------------------
+    !
+    config
+    !
+    interface TenGigabitEthernet0/0/4
+     no negotiation
+    !
+    interface TenGigabitEthernet0/0/5
+     no negotiation
+    ! 
+    commit
+    !
+    end
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Get Back to the Router Prompt
+    !-------------------------------------------------------------------
+    !
+    confd_cli -P 3010 -C -noaaa -g sdwan-oper
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Enable CDB
+    !-------------------------------------------------------------------
+    ! 
+    cdb-maintenance recovery-method normal-operation
+
+
+#### Transfer Files Between vManage and cEdge
+
+    !-------------------------------------------------------------------
+    ! Transfer from cEdge to vManage
+    !-------------------------------------------------------------------
+    !
+    request execute vpn 0 scp -P 830 admin@[system_ip]:/bootflash/ciscosdwan.txt /home/admin
+    !
+    !
+    !-------------------------------------------------------------------
+    ! Transfer from vManage to cEdge
+    !-------------------------------------------------------------------
+    !
+    request execute vpn 0 scp -P 830 /home/admin/ciscosdwan.txt admin@[system_ip]/bootflash/vmanage-admin
+
 #### Debugs
     
     !-------------------------------------------------------------------
