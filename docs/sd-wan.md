@@ -36,6 +36,11 @@
        no border
        color [sdwan_color] restrict
 
+#### Add Virtual Router
+
+     request platform software sdwan vedge_cloud activate chassis-number [chassis_id] token [token]
+
+
 ## Verify Commands
 
 #### QoS
@@ -63,6 +68,39 @@
     show policy-map interface GigabitEthernet 0/0/1
     !
     
+#### ZBF
+
+     show sdwan zbfw zonepair-statistics
+     show platform hardware qfp active feature firewall zonepair 1
+     show platform software firewall fp active pairs
+     show platform software firewall fp active vpn-bindings
+     show platform software firewall fp active zones
+     show platform hardware qfp active feature firewall datapath zonepair 1 1
+      
+     show platform hardware qfp active feature firewall memory
+     show object-group
+     show sdwan zonebfwdp sessions
+     show sdwan zbfw drop-statistics
+      
+     show platform software firewall fp active sessions zone-pair ZONE_PAIR_NAME
+     show platform software firewall fp active statistics
+      
+     show platform software object-manager fp active pending-issue-update
+     show platform software object-manager fp active error-object
+     show platform software object-manager fp active pending-ackupdate
+     show platform software object-manager fp active statistics
+     
+     show platform hardware qfp active feature firewall zonepair 1
+     show plat hard qfp act cl fe cl tcam cce 10913312 zone-pair 1 brief
+     
+     show platform  hardware qfp active classification class-group-manager class-group client cce all
+     show platform  hardware qfp active classification class-group-manager class-group client cce name RULE NAME
+     show platform  hardware qfp active classification feature-manager statistics
+     
+     show platform software access-list F0 summary
+     show platform hardware qfp active feature acl control 
+     
+     show platform hardware qfp active feature sdwan datapath cloudexpress stats
     
 ## Troubleshooting
 
