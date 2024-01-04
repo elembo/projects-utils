@@ -193,6 +193,16 @@
     !
     request execute vpn 0 scp -P 830 /home/admin/ciscosdwan.txt admin@[system_ip]/bootflash/vmanage-admin
 
+#### Check MTU
+    
+    !-------------------------------------------------------------------
+    ! MTU Commands
+    !-------------------------------------------------------------------
+    !
+    show platform software sdwan R0 next-hop overlay all
+    show platform hardware qfp active feature sdwan datapath session summary
+    !
+
 #### Debugs
     
     !-------------------------------------------------------------------
